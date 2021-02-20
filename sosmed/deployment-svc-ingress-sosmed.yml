@@ -36,6 +36,11 @@ spec:
                 secretKeyRef:
                   name: secretpesbuk
                   key: DB_HOST  
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: secretpesbuk
+                  key: DB_NAME  
 ---
 apiVersion: v1
 kind: Service
