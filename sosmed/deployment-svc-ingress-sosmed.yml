@@ -24,22 +24,22 @@ spec:
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: secretpesbuk
+                  name: secretsosmed
                   key: DB_USER
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: secretpesbuk
+                  name: secretsosmed
                   key: DB_PASS
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: secretpesbuk
+                  name: secretsosmed
                   key: DB_HOST  
             - name: DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: secretpesbuk
+                  name: secretsosmed
                   key: DB_NAME  
 ---
 apiVersion: v1
@@ -54,6 +54,7 @@ spec:
       #nodePort: 30080
   selector:
     name: sosmed-testing
+---
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
