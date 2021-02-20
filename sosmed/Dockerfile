@@ -3,12 +3,12 @@ FROM ubuntu:bionic
 RUN apt -y update
 RUN apt -y install nginx php-fpm php-mysqli systemd
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-RUN sed -i -e "s/;\?daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm$
+RUN sed -i -e "s/;\?daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm.conf
 
 COPY sosial-media/. /var/www/html/
 
 RUN unlink /etc/nginx/sites-enabled/default
-ADD sosial-media/sosmed /etc/nginx/sites-available/
+ADD sosmed /etc/nginx/sites-available/
 RUN ln -s /etc/nginx/sites-available/sosmed /etc/nginx/sites-enabled/default
 RUN echo "\nclear_env = no" >> /etc/php/7.2/fpm/pool.d/www.conf
 
