@@ -1,3 +1,4 @@
-from nginx:alpine
-copy webprofile-app/* /usr/share/nginx/html/
+FROM nginx:alpine
+COPY webprofile-app/. /usr/share/nginx/html/
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

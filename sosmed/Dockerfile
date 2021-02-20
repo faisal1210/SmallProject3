@@ -5,7 +5,7 @@ RUN apt -y install nginx php-fpm php-mysqli systemd
 RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 RUN sed -i -e "s/;\?daemonize\s*=\s*yes/daemonize = no/g" /etc/php/7.2/fpm/php-fpm$
 
-COPY sosial-media/* /var/www/html/
+COPY sosial-media/. /var/www/html/
 
 RUN unlink /etc/nginx/sites-enabled/default
 ADD sosial-media/sosmed /etc/nginx/sites-available/

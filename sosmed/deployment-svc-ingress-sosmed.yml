@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sosmed
+  name: sosmed-testing
   namespace: sosmed
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: sosmed
-      metadata: sosmed
+      name: sosmed-testing
+      metadata: sosmed-testing
   template:
     metadata:
       labels:
-        name: sosmed
-        metadata: sosmed
+        name: sosmed-testing
+        metadata: sosmed-testing
     spec:
       containers:
-      - name: sosmed
+      - name: sosmed-testing
         image: faisal1210/pesbuk2
         ports:
         - containerPort: 80
@@ -45,7 +45,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sosmed
+  name: sosmed-testing
   namespace: sosmed
 spec:
   #type: LoadBalancer
@@ -53,7 +53,7 @@ spec:
     - port: 80
       #nodePort: 30080
   selector:
-    name: sosmed
+    name: sosmed-testing
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
@@ -67,12 +67,12 @@ spec:
   tls:
     - hosts:
       - sosmed-testing.ical.host
-      secretName: sosmed-tls
+      secretName: sosmed-testing-tls
   rules:
   - host: sosmed-testing.ical.host
     http:
       paths:
       - backend:
-          serviceName: sosmed
+          serviceName: sosmed-testing
           servicePort: 80
         path: /                      
