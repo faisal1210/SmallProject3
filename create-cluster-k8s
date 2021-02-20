@@ -1,0 +1,5 @@
+kops create cluster --zones=ap-southeast-1a --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=${KOPS_CLUSTER_NAME} --ssh-public-key=~/.ssh/id_rsa.pub
+
+kops update cluster --name ${KOPS_CLUSTER_NAME} --yes --admin
+
+kops validate cluster
