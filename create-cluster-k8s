@@ -26,3 +26,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/ngin
 
 #create certificate manager
 kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.16.1/cert-manager.yaml 
+
+#mysql user privileges
+ALTER USER 'root'@'#' IDENTIFIED WITH mysql_native_password BY '<password>';
+flush privileges;
