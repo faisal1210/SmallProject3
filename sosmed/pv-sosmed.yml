@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-sosmed
+  namespace: sosmed
+  labels:
+    type: nfs-kubernetes
+spec:
+  storageClassName: aws-efs
+  capacity:
+    storage: 50Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /log
+    server: fs-1f92565f.efs.ap-southeast-1.amazonaws.com
+    readOnly: false

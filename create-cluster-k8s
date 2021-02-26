@@ -15,9 +15,32 @@ aws configure
 ##create cluster
 kops create cluster --zones=ap-southeast-1a --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=${KOPS_CLUSTER_NAME} --ssh-public-key=~/.ssh/id_rsa.pub
 
+----
+kops create cluster --vpc= --subnets=subnet-09664e761a4156978 --zones=ap-southeast-1b --networking=calico  --network-cidr "172.28.0.0/16" --topology private --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=macross-staging.ical.host --ssh-public-key=~/.ssh/id_rsa.pub --state=s3://macross-staging
+
+kops create cluster --vpc=vpc-03138c4ef1a765b97 --subnets=subnet-0edb2af018716b405 --zones=ap-southeast-1b --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=macross-prod.ical.host --ssh-public-key=~/.ssh/id_rsa.pub --state=s3://macross-prod
+
+kops create cluster --zones=ap-southeast-1b --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=macross-prod.ical.host --ssh-public-key=~/.ssh/id_rsa.pub --state=s3://macross-prod
+
+kops update cluster --name macross-prod.ical.host --state=s3://macross-prod --yes --admin
+
+kops validate cluster --name=macross-prod.ical.host --state=s3://macross-prod
+
+kops delete cluster --name macross-prod.ical.host --state=s3://macross-prod --yes
+
+
+kubectl config use-context macross-staging.ical.host
+
+https://kubernetes.io/id/docs/reference/kubectl/cheatsheet/
+---
+
+kops create cluster --zones=ap-southeast-1a --node-count=4 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=${KOPS_CLUSTER_NAME} --ssh-public-key=~/.ssh/id_rsa.pub
+
 kops update cluster --name ${KOPS_CLUSTER_NAME} --yes --admin
 
 kops validate cluster
+
+kops delete cluster --name ${KOPS_CLUSTER_NAME} --yes
 
 #create ingress controller
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.27.1/deploy/static/mandatory.yaml
@@ -30,3 +53,21 @@ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/relea
 #mysql user privileges
 ALTER USER 'admin'@'%' IDENTIFIED WITH mysql_native_password BY 'admin12345';
 flush privileges;
+
+----
+kops create cluster --vpc=vpc-00a528ed376bf14d6 --subnets=subnet-09664e761a4156978 --zones=ap-southeast-1b --networking=calico  --network-cidr "172.28.0.0/16" --topology private --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=macross-staging.ical.host --ssh-public-key=~/.ssh/id_rsa.pub --state=s3://macross-staging
+
+kops create cluster --vpc=vpc-00a528ed376bf14d6 --subnets=subnet-09664e761a4156978 --zones=ap-southeast-1b --node-count=3 --master-count=1 --node-size=t2.micro --master-size=t2.medium --name=macross-staging.ical.host --ssh-public-key=~/.ssh/id_rsa.pub --state=s3://macross-staging
+
+kops update cluster --name macross-staging.ical.host --state=s3://macross-staging --yes --admin
+
+kops validate cluster --name=macross-staging.ical.host --state=s3://macross-staging
+
+kops delete cluster --name macross-staging.ical.host --state=s3://macross-staging --yes
+
+
+kubectl config use-context macross-staging.ical.host
+
+https://kubernetes.io/id/docs/reference/kubectl/cheatsheet/
+---
+

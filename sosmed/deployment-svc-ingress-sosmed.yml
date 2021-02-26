@@ -20,6 +20,11 @@ spec:
         image: 768876311475.dkr.ecr.ap-southeast-1.amazonaws.com/macross-sosmed:latest
         ports:
         - containerPort: 80
+        volumeMounts:
+          - mountPath: /var/log/nginx
+            name: log
+        securityContext:
+          readOnlyRootFilesystem: true
         env:
             - name: DB_USER
               valueFrom:
@@ -41,6 +46,10 @@ spec:
                 secretKeyRef:
                   name: secretsosmed
                   key: DB_NAME  
+      volumes:
+      - name: log
+        persistentVolumeClaim:
+          claimName: efs-sosmed
 ---
 apiVersion: v1
 kind: Service
